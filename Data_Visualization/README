@@ -1,0 +1,72 @@
+Data Visualization Project
+
+This is the submission for the project of the Data Visualization course. Using d3.js & Dimple libraries, explanatory data visualization was crafted to effectively communicate with the audience. Several iterations of the visualization were made based upon feedback received.
+
+Summary
+The data for this visualization comes from one of the Udacity datasets about Baseball players. It contains batting averages, number of homeruns scored, information on the handedness (left, right or both) and physical characteristics (height & weight) of the players.
+
+Through the analysis, I found that generally left handed players had the highest mean batting average and the highest mean homeruns. It was also apparent that the largest proportion of players were right handed, second largest were left handed and the smallest proportion could use both their hands.
+
+In terms of physical characteristics, players who were shorter than the mean height (irrespective of their weight) had higher mean batting average than those who were above average height
+
+Design
+
+Since there are 6 variables (including the newly created "Count"), in the end a bubble chart was chosen which could represent 3 variables (X,Y & size). Color was chosen to repsent a 4th variable. The 5th and 6th variables were combined together, to create a filter on the graph, which also animates and interacts with the audience.
+
+The visualization is a bubble chart of the data, color grouped by handedness. The X & Y axes show the mean batting average and mean home runs respectively for that handedness category. The size of the bubble represents the count of the number of players in that handedness category.
+
+Hovering over the bubble presents the audience with data on the mean batting average, mean home runs scored & the count of players in that category.
+
+Additionally, a secondary horizontal bar chart was plotted on the right of the main chart. The Y axis of this secondary plot represented the different combinations of physical features for the players as listed below
+
+1.	Shorter & Heavier
+2.	Shorter & Thinner
+3.	Taller & Thinner
+4.	Taller & Heavier
+
+Where height and weight values were categorized with the following concept; Shorter: < Avg Height, Taller: > Avg Height", Thinner: < Avg Weight, 
+Heavier: > Avg Weight
+
+The X axis (or the length of the horizontal bars) represented the trend of the mean batting average for the specific physical characteristics, irrespective of handedness. The axes and title were hidden, to show only horizontal bars. The data labels were moved inside the plot, on top of the horizontal bars, which makes them appear like buttons. Additionally, clicking on the specific horizontal bar filters the primary plot with data for physical characteristic combination chosen. 
+Hovering over these horizontal bars/buttons of the secondary chart presents the readers with data on the physical attribute combination, as well as the mean batting average of that filter category.
+
+
+Data Processing
+
+To be able to effectively plot 6 variables in a single visualization while communicating the findings to the audience in a clear & concise way, required some degree of pre-processing. This was done using Google Sheets and Python.
+First, Height and Weight were converted into categories or buckets (two buckets, above & below mean). Then this combination of height & weight bucket was consolidated to create a new dependent attribute, called physical attribute.
+Secondly, a new variable called Count was created. It found the number of players which were present in each of the sub categories.
+
+Feedback
+
+1. Work Colleague A
+
+In the first version, I was showing each of the 1157 data points, with their batting average against their height in a bubble chart. The idea was to try and show through Color the handedness.
+
+Feedback: The primary feedback was that the data seemed very overwhelming with multiple data points. 
+Result: Hence, I decided to group the data by handedness, and show the mean batting average and the mean Home Runs on the X & Y axis. This would ensure that only 3 points were plotted per graph, allowing for easy digestion by the audience. Physical characteristic were further divided into above and below mean values and used as filters.
+
+2. Work Colleague B
+
+In this iteration, the data automatically and infinitely lopped through all the different filters (i.e. physical attribute categories).
+
+Feedback: Although the findings well understood, the feedback provided was that the audience may want to stop the loop and examine a particular physical attribute filter in detail.  
+Result: To accommodate this request, a second graph was incorporated which allowed this feature of selecting a particular filter and ending the automatic loop.
+
+3. Manager
+
+Feedback: The only improvement suggested was that my manager would have also liked to see how many players was part of each category. 
+Result: This request took some time to implement, as the data had to be further wrangled, thereby creating a new dependent attribute, “Count”. Finally, the bubble size in the visualization now represented the count of players in that category, showing light on the data distribution.
+
+Resources
+1. Udacity's Data Visualization and D3.js course
+   https://www.udacity.com/
+
+2. Dimple JS Github explanations
+   https://github.com/PMSI-AlignAlytics/dimple
+
+3. Dimple JS example visualizations
+   http://dimplejs.org/index.html
+
+4. D3 Github explanations
+   https://github.com/d3/d3.github.com

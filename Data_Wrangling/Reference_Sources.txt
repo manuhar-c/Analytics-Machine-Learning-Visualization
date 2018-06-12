@@ -1,0 +1,4 @@
+1. udacity.com 
+(Data Wrangling course; Case Study Open Street Map Data [SQL])
+2. https://gist.github.com/carlward/54ec1c91b62a5f911c42#file-sample_project-md
+(Sample SQL Project)

@@ -1,0 +1,23 @@
+<html>
+<div id="chartContainer">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
+  <script type="text/javascript">
+    var svg = dimple.newSvg("#chartContainer", 590, 400);
+    d3.csv("data.csv", function (data) {
+      var bb_chart = new dimple.chart(svg, data);
+      bb_chart.setBounds(60, 30, 510, 330)
+      x_axis=bb_chart.addMeasureAxis("x", "height");      
+      bb_chart.addMeasureAxis("y", "Mean Batting Average");
+      x_axis.overrideMin=64;
+      x_axis.overrideMax=80;
+      bb_chart.addSeries(["key","Handedness"], dimple.plot.circle);
+      bb_chart.addLegend(200, 10, 360, 20, "right");
+
+      d3.selectAll(".dimple-series-group-0")
+      .attr("opacity", "0.5")      
+      bb_chart.draw();
+    });
+  </script>
+</div>
+</html>

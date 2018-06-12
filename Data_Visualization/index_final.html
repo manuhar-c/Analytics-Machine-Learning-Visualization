@@ -1,0 +1,189 @@
+<html>
+<div id="chartContainer">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
+  <script type="text/javascript">
+  "use strict";
+
+    // Creating the chart container
+      var svg = dimple.newSvg("#chartContainer", 800, 540);
+
+      d3.csv("data.csv", function (data) {
+
+         // Code for the primary bubble chart
+          var primary_chart = new dimple.chart(svg, data);
+          primary_chart.setBounds(60, 100, 500, 390)
+
+          var x_axis=primary_chart.addMeasureAxis("x", "Mean Batting Average");
+          x_axis.overrideMin=0;
+          x_axis.overrideMax=0.3;
+          x_axis.ticks=5;
+          x_axis.fontSize = "12";
+
+          var y_axis=primary_chart.addMeasureAxis("y", "Mean Home Runs");
+          y_axis.overrideMin=0;
+          y_axis.overrideMax=75;
+          y_axis.fontSize = "12";
+
+          //Bubble size linked to count of players
+          primary_chart.addMeasureAxis("z", "Count");
+          
+          var avg_1 = primary_chart.addSeries(["Handedness"],
+            dimple.plot.bubble);
+
+          // Finding the mean of the axis variables
+          avg_1.aggregate = dimple.aggregateMethod.avg;
+
+          //Adding the legend
+          primary_chart.addLegend(280, 80, 410, 60);
+
+          // Code for the secondary chart/filter
+          var secondary_chart = new dimple.chart(svg, data);
+
+          // Choosing defualt & highlight colors
+          var defaultColor = secondary_chart.defaultColors[0];
+          var secondary_chartColor = secondary_chart.defaultColors[2];          
+           
+          // Place the secondary_chart bar chart
+          secondary_chart.setBounds(570, 200, 200, 290);
+
+          // Placing physical attributes as y on y axis
+          var y = secondary_chart.addCategoryAxis("y", "Physical Attributes");
+          y.addOrderRule(["Taller & Heavier","Taller & Thinner",
+            "Shorter & Thinner","Shorter & Heavier"]);
+
+          // UUsing category mean batting average on a hidden x axis
+          var x = secondary_chart.addMeasureAxis("x", "Mean Batting Average");
+          x.hidden = true;
+
+          // Finding the mean on this chart & adding click event handler
+          var s = secondary_chart.addSeries(null, dimple.plot.bar);
+          s.aggregate = dimple.aggregateMethod.avg;
+          s.addEventHandler("click", onClick);         
+          secondary_chart.draw();          
+
+          //Removing title and lines
+          y.titleShape.remove();          
+          y.shapes.selectAll("line,path").remove();
+
+          // Move the y axis text
+          y.shapes.selectAll("text")
+                  .style("text-anchor", "start")
+                  .style("font-size", "12px")
+                  .attr("transform", "translate(18, 0.5)");
+
+          //D3 code to add multi line title for secondary graph
+          svg.selectAll("title_text")
+                  .data(["Click any bar below to filter data and pause",
+                      "the animation. The blue horizontal bar length in",
+                      "the chart below represents the trend of the mean",
+                      "batting average for the specific combination of",
+                      "physical characteristics, irrespective of handedness",
+                      "",
+                      "Shorter: < Avg Height || Taller: > Avg Height",
+                      "Thinner: < Avg Weight || Heavier: > Avg Weight",])
+                     
+                  .enter()
+                  .append("text")
+                  .attr("x", 570)
+                  .attr("y", function (d, i) { return 105 + i * 12; })
+                  .style("font-family", "sans-serif")
+                  .style("font-size", "10px")
+                  .style("color", "Black")
+                  .text(function (d) { return d; });
+
+          //D3 code to add multi line title for primary graph
+          svg.selectAll("title_text")
+                  .data(["Left handed players (red circle) tend to score the\
+                    highest Batting Average & Home Runs"])                    
+                  .enter()
+                  .append("text")
+                  .attr("x", 20)
+                  .attr("y", function (d, i) { return 15 + i * 20; })
+                  .style("font-family", "sans-serif")
+                  .style("font-size", "18px")
+                  .style("color", "Black")
+                  .style("text-anchor", "left")                  
+                  .style("font-weight", "bold")
+                  .text(function (d) { return d; });
+
+          //D3 code to add multi line description
+          svg.selectAll("title_text")
+                  .data(["Except when the players are taller and thinner than\
+                   average. Then, 'both' handed have the highest batting\
+                    average.",
+                  "This is despite the fact that most players are right handed\
+                   (blue circle; circle size  is proportional to player count)",
+                  "Overlooking their handedness, shorter players had higher\
+                   batting averages than the taller ones,"])                     
+                  .enter()
+                  .append("text")
+                  .attr("x", 20)
+                  .attr("y", function (d, i) { return 35 + i * 15; })
+                  .style("font-family", "sans-serif")
+                  .style("font-size", "12px")
+                  .style("color", "Black")
+                  .style("text-anchor", "left")                  
+                  .style("font-weight", "bold")
+                  .text(function (d) { return d; });
+
+          // Setting the bar colors
+          s.shapes
+                 .attr("rx", 10)
+                 .attr("ry", 10)
+                 .style("fill", function (d) { 
+                  return (d.y === 'Shorter & Heavier' 
+                    ? secondary_chartColor.fill : defaultColor.fill); })
+                 .style("stroke", function (d) { 
+                  return (d.y === 'Shorter & Heavier' 
+                    ? secondary_chartColor.stroke : defaultColor.stroke);})
+                  .style("opacity", 0.4);
+
+         // Defining Storyboard, sequence & variables
+          var frame = 1500;
+          var firstTick = true;          
+          var story = primary_chart.setStoryboard("Physical Attributes",
+            onTick);         
+          story.frameDuration = frame;
+          story.addOrderRule(["Shorter & Heavier","Shorter & Thinner",
+            "Taller & Thinner","Taller & Heavier"]);
+          primary_chart.draw();
+
+          // Orphaning legends so they do not refresh
+          primary_chart.legends = [];
+
+          // Defining what to do on click        
+          function onClick(e) {
+              // Pause 
+              story.pauseAnimation();              
+              //If filter chosen is not currently selected, move to that value
+              if (e.yValue === story.getFrameValue()) {
+                  story.pauseAnimation();
+              } else {
+                  story.goToFrame(e.yValue);
+                  story.pauseAnimation();
+              }
+          }
+          
+          // Defining what to do on rendering new frame
+          function onTick(e) {
+              if (!firstTick) {
+                  // Color all shapes the same
+                  s.shapes
+                          .transition()
+                          .duration(frame / 2)
+                          .style("fill", function (d) { 
+                            return (d.y === e ? 
+                              secondary_chartColor.fill : defaultColor.fill);})
+                          .style("stroke", function (d) { 
+                            return (d.y === e ? 
+                              secondary_chartColor.stroke : defaultColor.stroke)
+                          ;});
+              }
+              
+              firstTick = false;
+          }
+      });
+  </script>
+</div>
+</html>

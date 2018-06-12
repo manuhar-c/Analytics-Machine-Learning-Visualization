@@ -1,0 +1,12 @@
+Resources
+1. Udacity's Data Visualization and D3.js course
+   https://www.udacity.com/
+
+2. Dimple JS Github explanations
+   https://github.com/PMSI-AlignAlytics/dimple
+
+3. Dimple JS example visualizations
+   http://dimplejs.org/index.html
+
+4. D3 Github explanations
+   https://github.com/d3/d3.github.com

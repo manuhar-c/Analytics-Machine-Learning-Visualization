@@ -1,0 +1,7 @@
+Southampton, England
+
+https://mapzen.com/data/metro-extracts/metro/southampton_england/
+
+Description:The map is of Southampton, England. Southampton is the largest city in the ceremonial county of Hampshire.It is 75 miles (121 km) south-west of London and 19 miles (31 km) north-west of Portsmouth. Southampton is a major port and the closest city to the New Forest. It lies at the northernmost point of Southampton Water at the confluence of the Rivers Test and Itchen,with the River Hamble joining to the south of the urban area.[Source: Wikipedia] 
+
+Reason for choosing this city: I had visited a friend who lives there some years ago and really enjoyed exploring the place. I would be happy to contribute to improving its map data to help future travellers who find themselves in this port city !

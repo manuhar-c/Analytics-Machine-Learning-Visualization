@@ -1,0 +1,14 @@
+1.https://www.udacity.com/
+Experiment data, tutorials and templates
+
+2.https://www.graphpad.com/quickcalcs/binomial1.cfm
+Online Sign test calculator
+
+3.http://www.evanmiller.org/ab-testing/sample-size.html
+Sample size calculator
+
+4.https://en.wikipedia.org/wiki/Sign_test
+Sign Test Details
+
+5.https://en.wikipedia.org/wiki/A/B_testing
+A B tests information

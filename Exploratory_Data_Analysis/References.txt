@@ -1,0 +1,18 @@
+1. Udacity: Exploratory Data Analysis, template file & tutorials
+   https://www.udacity.com/
+
+2. GGplot2/R Color Brewer
+   http://ggplot2.tidyverse.org/index.html
+   http://ggplot2.tidyverse.org/reference/scale_brewer.html
+
+3. Diamonds Example Project, Udacity
+   https://s3.amazonaws.com/content.udacity-data.com/courses/ud651/diamondsExample_2016-05.html
+
+4. Using ggaly
+   http://ggobi.github.io/ggally/#ggallyggpairs
+
+5. GGplot Axis Maniplulations
+   https://rstudio-pubs-static.s3.amazonaws.com/3364_d1a578f521174152b46b19d0c83cbe7e.html
+
+6. Wine database 
+   https://s3.amazonaws.com/udacity-hosted-downloads/ud651/wineQualityInfo.txt
