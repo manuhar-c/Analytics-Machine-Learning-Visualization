@@ -1,0 +1,10 @@
+Statement: I hereby confirm that this submission is my work. I have cited below the origins of any parts of the submission that were taken from Websites, books, forums, blog posts, github repositories, etc.
+
+References
+
+1.https://www.udacity.com/
+(Machine Learning Project: Data input, Validation & Evaluation code)
+2.http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html 
+3.http://scikit-learn.org/stable/auto_examples/plot_compare_reduction.html#sphx-glr-auto-examples-plot-compare-reduction-py
+4.http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedShuffleSplit.html
+5.http://scikit-learn.org/stable/auto_examples/model_selection/plot_multi_metric_evaluation.html#sphx-glr-auto-examples-model-selection-plot-multi-metric-evaluation-py
